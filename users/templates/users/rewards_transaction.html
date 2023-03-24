@@ -1,0 +1,54 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if error %}
+<p class="form-title">{{ error }}</p>
+{% else %}
+
+<div style="display: flex; position: relative">
+    <img src="{{ reward_badge.url }}" alt="{{ reward_for }}" style="width: 14%; position:absolute; right: 4%">
+</div>
+<br>
+<div class="table-div">
+    <h3 style="text-align: center">Reward: {{ reward_token }} SPK tokens</h3>
+    <h3 style="text-align: center">Reward for: {{ reward_for }}s</h3>
+    <p class="form-title">Transactions </p>
+
+    <table class="table table-bordered custom-table">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 10%">Sr. No.</th>
+            <th scope="col" style="width: 30%">Content Title</th>
+            <th scope="col" style="width: 20%">Content Category</th>
+            <th scope="col">Transaction Link</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for reward in rewards %}
+        <br>
+        <tr>
+            <td>
+                {{ reward.counter }}
+            </td>
+            <td>
+                {{ reward.content_title }}
+            </td>
+            <td>
+                {{ reward.content_category }}
+            </td>
+            <td>
+                <a href="https://mumbai.polygonscan.com/tx/{{ reward.transaction_link }}" target="_blank" class="tx_link">
+                    {{ reward.transaction_link }}
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

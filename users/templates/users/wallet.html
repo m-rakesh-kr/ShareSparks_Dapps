@@ -1,0 +1,45 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+
+{% block content %}
+<div id="metamask-extension-not-installed" class="custom-text" style="display: none">
+    <h1>You need to connect your wallet with ShareSparks.</h1>
+    <h2>Please add MetaMask Extension to your Browser.</h2>
+    <h3><i><a style="color: #915BC5FF"
+              href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+              target="_blank">Chrome Extension </a></i></h3>
+    <h3><i><a style="color: #915BC5FF" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/"
+              target="_blank">Firefox Extension </a></i></h3>
+</div>
+
+<div id="connect-metamask" class="custom-text" style="display: none">
+    <h1>You need to connect your registered wallet with ShareSparks.</h1>
+    <h2>Please connect your MetaMask account.</h2>
+    <br>
+    <button type="button" id="connect-wallet-btn" class="custom-button custom-button-page"
+            style="width: 20%; font-size: large" onclick="connectWallet()">Connect Wallet
+    </button>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <div id="wallet-details" class="admin-form-bg" style="display: none">
+        <div class="admin-form" style="width: 45%; height: 100%">
+            <p class="form-title">Wallet Details</p>
+            <h4 id="wallet"></h4>
+            <h4 id="matic-balance"></h4>
+            <h4 id="spark-token-balance"></h4>
+            <button type="submit" name="transfer-tokens" class="custom-button custom-button-form">Transfer Spark
+                Tokens?
+            </button>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static '/js/main.js' %}"></script>
+<script src="{% static '/js/wallet.js' %}"></script>
+{% endblock script%}

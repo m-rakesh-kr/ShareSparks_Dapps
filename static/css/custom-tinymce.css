@@ -1,0 +1,26 @@
+/* Change the background color of the editor */
+.mce-content-body {
+    background-color: #F7F7F7;
+}
+
+.mce-content-header {
+    background-color: #F7F7F7;
+}
+/* Change the font size and color of the editor text */
+.mce-content-body p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Change the font family of the editor text */
+.mce-content-body * {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.mce-container,
+.mce-container *,
+.mce-panel {
+    border: none;
+    border-radius: 20px;
+    width: 80%;
+}

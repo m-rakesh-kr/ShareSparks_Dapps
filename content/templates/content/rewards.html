@@ -1,0 +1,57 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+<p class="form-title">Rewards</p>
+
+<table class="table table-bordered custom-table ">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 15%">Reward ID</th>
+        <th scope="col">Reward Tokens</th>
+        <th scope="col" style="width: 15%">Target</th>
+        <th scope="col" style="width: 15%">Target Type</th>
+        <th scope="col" style="width: 15%"></th>
+        <th scope="col" style="width: 15%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for reward in rewards %}
+
+    <tr>
+        <td>
+            {{ reward.id }}
+
+        </td>
+        <td>
+            {{ reward.token }}
+        </td>
+        <td>
+            {{ reward.target }}
+        </td>
+        <td>
+            {% if reward.target_type == 'like' %}
+            Likes
+            {% else %}
+            Comments
+            {% endif %}
+        </td>
+
+        <td>
+            <a href="{% url 'update_reward' reward.id %}">
+                Update
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'delete_reward' reward.id%}">
+                Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'add_reward' %}" style="text-decoration: none">
+    <button class="custom-button custom-button-page" type="button">Add Rewards?</button>
+</a>
+
+{% endblock content %}

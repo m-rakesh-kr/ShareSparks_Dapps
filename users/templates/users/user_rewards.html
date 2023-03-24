@@ -1,0 +1,55 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+
+{% block content %}
+<p class="form-title">Rewards</p>
+<div class="rewards-list">
+    {% for reward in rewards %}
+    <div class="reward-badge">
+        <a href="{% url 'rewards_transaction' user.username reward.reward_id %} ">
+            <img src="{{ reward.reward__reward_badge.url }}" alt="{{ reward.reward_id }}" style="width: 100%">
+            <h4 style="text-align: center; margin-top: -5%">x{{ reward.reward_count }}</h4>
+        </a>
+    </div>
+    {% endfor %}
+    {% for reward in next_rewards %}
+    <img src="{{ reward.reward_badge.url }}" alt="{{ reward.reward.token }} {{ reward.reward.target_type }}"
+         class="reward-badge reward-badge-grayscale">
+
+    {% endfor %}
+</div>
+
+{% if all_rewards %}
+<p class="form-title">All Transactions</p>
+
+<table class="table table-bordered custom-table ">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 10%">Sr. No.</th>
+        <th scope="col">Rewarded SPK Tokens</th>
+        <th scope="col">Transaction Link</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for reward in all_rewards %}
+    <tr>
+        <td>
+            {{ reward.counter }}
+        </td>
+        <td>
+            {{ reward.tokens_rewarded }}
+        </td>
+        <td>
+            <a href="https://mumbai.polygonscan.com/tx/{{ reward.tx_hash }}" target="_blank" class="tx_link">
+                {{ reward.tx_hash }}
+            </a>
+        </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock content %}

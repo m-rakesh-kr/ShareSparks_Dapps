@@ -1,0 +1,17 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+
+{% block content %}
+<p class="form-title">Content Rewards</p>
+<div class="rewards-list">
+    {% for reward in content_rewards %}
+        <img src="{{ reward.reward.reward_badge.url }}" alt="{{ reward.reward.token }} {{ reward.reward.target_type }}"
+             class="reward-badge">
+    {% endfor %}
+    {% for reward in next_rewards %}
+        <img src="{{ reward.reward_badge.url }}" alt="{{ reward.reward.token }} {{ reward.reward.target_type }}"
+             class="reward-badge reward-badge-grayscale">
+
+    {% endfor %}
+</div>
+{% endblock content %}

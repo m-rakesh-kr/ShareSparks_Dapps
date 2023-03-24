@@ -1,0 +1,21 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+<p class="form-title">Comments</p>
+{% for comment in comments %}
+<article class="comment-section">
+    <img class="comment-img" src="{{ comment.user.profile_image.url }}">
+    <div class="comment-metadata">
+        <a class="mr-2 comment-img" href="{% url 'profile' comment.user.username %}">@{{comment.user.username}}</a>
+
+        {% if user == comment.user %}
+            <a href="{% url 'delete_comment' comment.id%}">
+            <button type="button" class="custom-button delete-comment-btn">Delete comment</button>
+            </a>
+        {% endif %}
+
+        <p>{{ comment.comment }}</p>
+        <small class="text-muted">{{ comment.date_commented }}</small>
+    </div>
+</article>
+{% endfor %}
+{% endblock content %}

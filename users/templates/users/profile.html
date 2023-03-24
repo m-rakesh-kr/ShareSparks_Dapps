@@ -1,0 +1,100 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+<div class="profile">
+    <div class="profile-bg"></div>
+    <div class="profile-div">
+        <img class="rounded-circle profile-img" src="{{ user_data.profile_image.url }}" alt="Profile Image">
+
+        <div class="profile-dropdown">
+            <i class="fas fa-bars" style="cursor: pointer; font-size: xx-large;"></i>
+            <div class="profile-dropdown-content">
+                <a href="{% url 'rewards' user_data.username %}" style="text-decoration: none; color: #6B728E"><p>View Rewards</p>
+                </a>
+                {% if user == user_data %}
+                <a href="{% url 'view_archive_content' %}" style="text-decoration: none; color: #6B728E"><p>View
+                    Archived</p>
+                </a>
+                <a href="{% url 'profile_update' user.id %}" style="text-decoration: none; color: #6B728E"><p>Update
+                    Profile</p></a>
+                <a href="{% url 'delete_profile' %}" style="text-decoration: none; color: #6B728E"><p>Delete Profile</p>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <div class="profile-details profile-text">
+        <p style="color: #404258; font-size: xx-large; margin-bottom: -0.5%">{{ user_data.first_name }} {{ user_data.last_name }}</p>
+        <div class="icon-align">
+            <i class="fas fa-user" style="color: #6B728E"></i>
+            <p style="color: #6B728E; font-size: large; margin: 0 10%">{{ user_data.username }}</p>
+        </div>
+        <br>
+        <div class="icon-align">
+            <i class="fas fa-envelope" style="color: #6B728E"></i>
+            <p style="color: #6B728E; font-size: large; margin: 0 2%">{{ user_data.email }}</p>
+        </div>
+        <br><br>
+        <p style="color: #474E68; font-size: x-large">Posts: {{ total_posts }}</p>
+    </div>
+</div>
+{% if error %}
+<div style="border: 1px solid #dddddd;">
+    <p class="form-title"> IPFS server error </p>
+    <h3 style="text-align: center">Could not fetch the content details due to IPFS error.</h3>
+    <h3 style="text-align: center">Please try again after sometime</h3>
+</div>
+{% endif %}
+
+{% if posts %}
+{% for post in posts %}
+<article class="content-section">
+    <div class="content-profile">
+        <img class="article-img" src="{{ post.user.profile_image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="" href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a>
+                <br>
+                <a class="" href="{% url 'profile' post.user.username %}">{{ post.user.first_name }} {{ post.user.last_name }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="content-data">
+        <p><a class="article-title" href="{% url 'view_detailed_post' post.id %}">{{ post.title }}</a></p>
+        <p class="text-muted category">Category: {{ post.category }}</p>
+        <p class="article-content">{{ post.data|safe }}</p>
+        <small class="text-muted post-time">
+            {{ post.post_time|naturaltime}}
+            {% if post.updated_time %}
+            (Updated {{post.updated_time|naturaltime}})
+            {% endif %}
+        </small>
+
+    </div>
+</article>
+{% endfor %}
+
+
+<div class="pagination" style="width: 100%">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><button class="pagination-btn"><</button></a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}"><button class="pagination-btn pagination-btn-active">{{ num }}</button></a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}"><button class="pagination-btn">{{ num }}</button></a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><button class="pagination-btn">></button></a>
+    {% endif %}
+</div>
+
+{% endif %}
+
+{% endblock  %}

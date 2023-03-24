@@ -1,0 +1,17 @@
+{% extends "content/navigation.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="admin-form-bg">
+    <div class="admin-form">
+        <form method="POST">
+            {% csrf_token %}
+            <p class="form-title">Update Post Fee</p>
+            <label for="fees" style="margin: 0.5% 10%">Post Fees:</label>
+            <input type="number" step="any" id="fees" name="new_post_fee" placeholder="Current fees: {{ current_fee }} SPK">
+            <br>
+            <p style="text-align: center; padding-bottom: 3%;">Note: Spark Tokens have 18 decimals</p>
+            <button type="submit" name="update" class="custom-button custom-button-form">Update Fees</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "content/navigation.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="admin-form-bg">
+    <div class="admin-form">
+        <form method="POST">
+            {% csrf_token %}
+            <p class="form-title">Add Category</p>
+            <label for="category" style="margin: 0.5% 10%">Category Name:</label>
+            <input type="text" id="category" name="category">
+            <br>
+            <button type="submit" name="add" class="custom-button custom-button-form">Add</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

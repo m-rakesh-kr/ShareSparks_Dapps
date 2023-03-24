@@ -1,0 +1,76 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+{% load humanize %}
+<div class="home">
+    <div class="content-data-section">
+        {% block category-title %}{% endblock category-title %}
+        {% for post in posts %}
+        <article class="content-section-home">
+            <div class="content-profile">
+                <img class="article-img" src="{{ post.user.profile_image.url }}" alt="profile-picture">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="" href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a>
+                        <br>
+                        <a class="" href="{% url 'profile' post.user.username %}">{{ post.user.first_name }} {{ post.user.last_name }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="content-data">
+                <p><a class="article-title" href="{% url 'view_detailed_post' post.id %}">{{ post.title }}</a></p>
+                <p class="text-muted category">Category: {{ post.category }}</p>
+                <p class="article-content">{{ post.data|safe }}</p>
+                <small class="text-muted post-time" style="bottom: -18%">
+                    {{ post.post_time|naturaltime}}
+                    {% if post.updated_time %}
+                    (Updated {{post.updated_time|naturaltime}})
+                    {% endif %}
+                </small>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    <div class="home-topics">
+        <div class="recommendations-section">
+            <p class="home-topics-title">Trending</p>
+            {% for content in trending_content %}
+            <article class="trending-content">
+                <div class="trending-author-details">
+                    <img src="{{ content.user.profile_image.url}}" alt="Profile Picture" class="trending-author-image">
+                    <span> @{{ content.user.username }}</span>
+                </div>
+                <p class="trending-title"><a href="{% url 'view_detailed_post' content.content.id %}">{{ content.title }}</a></p>
+            </article>
+            {% endfor %}
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="category-section">
+            <p class="home-topics-title">Recommended Topics</p>
+            {% for category in categories %}
+                <a href="{% url 'filter-content' category.category %}"><button type="button" class="category-filter-btn" name="category_id" >{{ category.category }}</button></a>
+
+            {% endfor %}
+        </div>
+        </form>
+    </div>
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><button class="pagination-btn"><</button></a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}"><button class="pagination-btn pagination-btn-active">{{ num }}</button></a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}"><button class="pagination-btn">{{ num }}</button></a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><button class="pagination-btn">></button></a>
+    {% endif %}
+</div>
+{% endblock  %}

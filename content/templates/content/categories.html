@@ -1,0 +1,42 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+<p class="form-title">Content Categories</p>
+
+<table class="table table-bordered custom-table ">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 20%">Category ID</th>
+        <th scope="col">Category Name</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in categories %}
+    <tr>
+        <td>
+            {{ category.id }}
+        </td>
+        <td>
+            {{ category.category }}
+        </td>
+        <td>
+            <a href="{% url 'update_category' category.id %}">
+                Update
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'delete_category' category.id %}">
+                Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'add_category' %}" style="text-decoration: none">
+    <button class="custom-button custom-button-page" type="button">Add new Category?</button>
+</a>
+
+{% endblock content %}

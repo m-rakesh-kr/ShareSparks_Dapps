@@ -1,0 +1,25 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+
+{% block content %}
+<div class="admin-form-bg">
+    <div class="admin-form" style="width: 500px; height: 350px">
+        <form method="POST">
+            {% csrf_token %}
+            <p class="form-title">Transfer Spark Tokens</p>
+            <div class="input-field">
+                <label for="user">Username:</label>
+                <input type="text" id="user" name="user" placeholder="User to whom you want to send tokens" required>
+            </div>
+            <div class="input-field">
+                <label for="tokens" style="width: 30%">Tokens:</label>
+                <input type="number" step="any" id="tokens" name="tokens" placeholder="Enter the number of SPK tokens " required>
+            </div>
+            <br>
+            <p style="text-align: center">Note: The user should have a registered metamask wallet address.</p>
+            <p style="text-align: center; padding-bottom: 3%;">Note: Spark Tokens have 18 decimals</p>
+            <button type="submit" name="transfer" class="custom-button custom-button-form">Transfer</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

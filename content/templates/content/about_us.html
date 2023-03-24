@@ -1,0 +1,65 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+<div class="about-us-div">
+    <div style="padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    width: 50%;
+    margin: 1%;
+   ">
+    <p class="form-title">About ShareSparks</p>
+    <h3>ShareSparks is a semi-centralized social media platform that connects people from all over the world in a safe and secure environment.Creators can post their content and the audience may interact with the content as per their choice and the creators would get rewards in the
+    form of Spark Tokens as per their content engagement.</h3>
+    <h3>ShareSparks combines the scalability and user-friendly features of centralized systems with the privacy
+        and transparency benefits of decentralized systems.</h3>
+    <h3>The platform is designed to be user-centric, ensuring that users have complete control over their data </h3>
+
+</div>
+<div style="padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    width: 50%;
+    margin: 1%;
+    ">
+    <p class="form-title">About Spark Tokens</p>
+    <h3>Spark Tokens are the digital tokens used to facilitate transactions and interactions in the Sharesparks ecosystem.</h3>
+    <h3>They are the native cryptocurrency of ShareSparks platform.</h3>
+<!--    <h3>Current value of Spark Token is : (fetch it from blockchain)</h3>-->
+    <h3>Users can buy Spark Tokens by swapping them with Matic tokens at: <a class="link" href="{% url 'add_spark_tokens' %}">Add SPK Tokens</a> </h3>
+</div>
+</div>
+
+<p class="form-title">Rewards</p>
+
+<table class="table table-bordered custom-table ">
+    <thead>
+    <tr>
+        <th scope="col">Reward Tokens</th>
+        <th scope="col">Target</th>
+        <th scope="col">Target Type</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for reward in rewards %}
+
+    <tr>
+        <td>
+            {{ reward.token }}
+        </td>
+        <td>
+            {{ reward.target }}
+        </td>
+        <td>
+            {% if reward.target_type == 'like' %}
+            Likes
+            {% else %}
+            Comments
+            {% endif %}
+        </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

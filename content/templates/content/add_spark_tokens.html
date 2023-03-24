@@ -1,0 +1,26 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+<p class="form-title">Please add Spark Tokens in your wallet</p>
+<div style="margin: 2% 20% 2% 22%;">
+    <h2>Follow the below given steps to add Spark Tokens in your wallet</h2>
+    <ol style="padding: 2% 8%; font-size: 1.2em">
+        <li>
+            Click on this link and connect your MetaMask wallet with uniswap: <a class="link" href="https://app.uniswap.org/#/swap" target="_blank">Uniswap Exchange</a>
+        </li>
+        <li>
+            Enter this address to find Spark Tokens: {{ contract_address }}
+        </li>
+        <li>
+            Select SPK tokens against Matic tokens to exchange them.
+        </li>
+        <li>
+            Enter the amount of tokens you want to exchange and click on swap.
+            <p>(Note: You might need to approve the use of SPK tokens first if you are swapping huge number of tokens)</p>
+        </li>
+        <li>
+            Confirm swap and confirm the transaction from MetaMask to successfully exchange the tokens.
+        </li>
+    </ol>
+</div>
+
+{% endblock content %}

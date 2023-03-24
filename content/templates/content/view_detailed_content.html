@@ -1,0 +1,117 @@
+{% extends "content/navigation.html" %}
+{% block content %}
+{% load humanize %}
+<div class="view-content">
+    <div class="content-user-profile">
+        <div class="content-profile">
+            <img class="article-img" src="{{ content_creator.profile_image.url }}">
+        </div>
+
+        <div class="content-data">
+            <h1 class="article-title"><a href="{% url 'profile' content_creator.username %}">@{{ content_creator.username }}</a></h1>
+            <h4><a class="text-muted" href="{% url 'profile' content_creator.username %}">{{ content_creator.first_name }} {{ content_creator.last_name }}</a></h4>
+
+            <!--dropdown-->
+            <div class="content-dropdown">
+                <i class="fas fa-bars" style="cursor: pointer; font-size: x-large"></i>
+                <div class="content-dropdown-details">
+                    <a href="{% url 'content_rewards' content_id %}" style="text-decoration: none; color: #6B728E"><p>
+                        Rewards</p></a>
+
+                    {% if user.username == content_creator.username %}
+                    <a href="{% url 'update_content' content_id %}" style="text-decoration: none; color: #6B728E"><p>
+                        Update</p></a>
+                    <a href="{% url 'archive_content' content_id %}" style="text-decoration: none; color: #6B728E"><p>
+                        Archive</p></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <small class="text-muted post-time">
+                {{ post_time|naturaltime}}
+                {% if updated_time %}
+                (Updated {{ updated_time|naturaltime}})
+                {% endif %}
+            </small>
+        </div>
+    </div>
+
+    <div class="content-details">
+        <p class="form-title">{{ content.title }}</p>
+        <h4 style="text-align: center">Category: {{ content.category }}</h4>
+        <p style="font-size: medium; padding: 1%">{{ content.data|safe }}</p>
+    </div>
+
+    <div class="like-comment">
+        <div class="like">
+            {% if not already_liked%}
+            <a class="far fa-heart" href="{% url 'like' content_id%}" role="button"></a>
+            {% else %}
+            <a class="fas fa-heart" href="{% url 'unlike' content_id%}" role="button"></a>
+            {% endif %}
+        </div>
+        <form method="POST" style="width: 97%">
+            {% csrf_token %}
+            <div class="comment">
+                <input type="text" name="comment" id="comment" oninput="validateInput()">
+                <button type="submit" class="custom-button" id="add-comment-btn" disabled>Add Comment</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="count">
+        {% if likes_count == 1 %}
+        <p class="like-count">{{ likes_count }} like</p>
+        {% else %}
+        <p class="like-count">{{ likes_count }} likes</p>
+        {% endif %}
+
+        {% if comments_count == 0 %}
+        <p class="comment-count">{{ comments_count }} comments</p>
+        {% elif comments_count == 1 %}
+        <a href="{% url 'view_comments' content_id %}" class="comment-count">{{ comments_count }} comment</a>
+        {% else %}
+        <a href="{% url 'view_comments' content_id %}" class="comment-count">{{ comments_count }} comments</a>
+        {% endif %}
+    </div>
+</div>
+
+{% if comments_count > 0 %}
+<div class="comments-section">
+    <h3 style="border-bottom: 1px solid #e3e3e3; text-align: center; padding-bottom: 1%">Comments</h3>
+    {% for comment in comments %}
+    <article class="comments">
+        <img class="comment-img" src="{{ comment.user.profile_image.url }}" alt="Profile Picture"
+             style="height: 50px; width: 50px">
+        <div class="comment-metadata">
+            <a class="mr-2 comment-img" href="{% url 'profile' comment.user.username %}">@{{comment.user.username}}</a>
+            <p style="color: black">{{ comment.comment }}</p>
+        </div>
+    </article>
+    {% endfor %}
+    <a href="{% url 'view_comments' content_id %}" class="comment-count"
+       style="border-top: 1px solid #e3e3e3;
+                text-align: center;
+              padding-top: 1%;
+              display: block">
+        View all comments
+    </a>
+</div>
+{% endif %}
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    function validateInput() {
+        var input = document.getElementById("comment");
+        var button = document.getElementById("add-comment-btn");
+
+        if (input.value.length > 0) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+</script>
+{% endblock script %}

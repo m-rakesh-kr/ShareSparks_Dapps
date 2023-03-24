@@ -1,0 +1,70 @@
+{% extends "content/navigation.html" %}
+{% load static %}
+{% block content %}
+<div class="content-bg">
+    <div class="add-content">
+        <form method="POST">
+            {% csrf_token %}
+            <p class="form-title">Add New Content </p>
+
+            <div class="content-input-div">
+                <label for="content-title">Content Title:</label>
+                <input type="text" id="content-title" name="title">
+            </div>
+            <div class="custom-error">
+                {% for error in errors.title %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            <label for="content-category">Content Category:</label>
+            <select name="category" id="content-category">
+                {% for category in categories %}
+                <option value="{{category.id}}">
+                    {{category.category}}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="custom-error">
+                {% for error in errors.category %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            <div class="content-input-div">
+                <label style="width: 17%">Content Data:</label>
+                {{ data }}
+<!--                <textarea id="content-data" name="data" rows="8"></textarea>-->
+            </div>
+            <div class="custom-error">
+                {% for error in errors.data %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            <button type="submit" name="add-content" class="custom-button custom-button-page">Add Post</button>
+        </form>
+
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/metamask_connection.js' %}"></script>
+<script>
+    const userAddress = "{{user_address}}"
+    $(document).ready(async function (){
+        await testConnection(userAddress)
+    })
+    tinymce.init({
+    selector: '#content-data',
+    height: 'auto',
+    width: 'auto',
+    plugins: 'link',
+    toolbar: 'undo redo | bold italic | link',
+    menubar: false,
+    statusbar: false
+});
+</script>
+{% endblock script %}

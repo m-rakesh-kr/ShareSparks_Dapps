@@ -1,0 +1,39 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+
+    <title>Waiting..</title>
+
+</head>
+
+<body style="overflow: hidden">
+
+<img src="{% static 'images/wait.png' %}" alt="background image" style="height: 100%; width: 100%">
+
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/add_content_to_blockchain.js' %}"></script>
+</body>
+</html>
+
+<script>
+    const ipfsAddress = "{{ipfs_address}}"
+    const userAddress = "{{user_address}}"
+    const contractAddress = "{{contract_address}}"
+    const func = "{{function}}"
+    const content_id = "{{content_id}}"
+    const category_id = "{{category_id}}"
+
+    $(document).ready(function () {
+        addToBlockchain(ipfsAddress, userAddress, contractAddress, content_id, func, category_id)
+    })
+</script>

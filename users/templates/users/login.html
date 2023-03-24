@@ -1,0 +1,33 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+<div class="login">
+    <form method="POST">
+        {% csrf_token %}
+
+        <p class="form-title">Login</p>
+
+        <div class="error">
+            {% if error_message %}
+                {{ error_message }}
+            {% endif %}
+        </div>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <br>
+        <input type="password" id="pwd" name="password" placeholder="Password" required>
+        <br>
+        <button type="submit" name="sign-in" class="custom-button custom-button-form">Sign In</button>
+    </form>
+
+    <div class="option-link">
+        <small class="text-muted">
+            Forgot Password?  <a class="custom-link" href="{% url 'password_reset' %}">Reset Password</a>
+        </small>
+    </div>
+    <div class="option-link">
+        <small class="text-muted">
+            Need an account? <a class="custom-link" href="{% url 'register' %}">Sign Up</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}
