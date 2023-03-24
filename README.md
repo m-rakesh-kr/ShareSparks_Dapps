@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ShareSparks
 A semi-centralized social media platform
 
@@ -19,10 +18,3 @@ https://docs.google.com/document/d/1Bcm5UPK7M8gaVSRS60LoY0HVwsTEzgvaqTpt-5vynPQ/
 
 ### Presentation(ppt) of this ShareSparks is as below:-
 https://www.canva.com/design/DAFdKpB4bjI/Uazn28bxrGAo6Bz37u1bww/view
-=======
-ShareSparks 
-
-ShareSparks is a semi-centralized content-hosting platform that aims to incentivize content creators and reward them for their engaging and valuable content. The platform allows users to post their content and interact with it as they see fit. The engagement of the audience with the content determines the rewards received by the content creators in the form of SparkCoins, the platform's token/cryptocurrency.
-
-ShareSparks provides a way for content creators to monetize their work, by rewarding them with SparkCoins. It provides an alternative to traditional centralized content-hosting platforms. The semi-centralized nature of the platform ensures that the content is not subject to censorship, but it still provides some level of control to maintain quality and avoid inappropriate content.
->>>>>>> 2bf129b (First Commit)
